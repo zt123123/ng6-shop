@@ -10,7 +10,7 @@ import { ProductService, Product, Comment } from '../share/product.service';
 export class ProductDetailComponent implements OnInit {
   product: Product;
   comments: Comment[];
-
+  isCommentHidden: boolean = true;
   newRating: number;
   newComment: string;
 
@@ -29,5 +29,14 @@ export class ProductDetailComponent implements OnInit {
   addComment() {
     let comment = new Comment(0, this.product.id, new Date, "someone", this.newRating, this.newComment);
     this.comments.unshift(comment);
+    this.newComment = "";
+    this.newRating = 5;
+    this.isCommentHidden = true;
+    this.calcAvgStar(comment);
+  }
+
+  calcAvgStar(comment) {
+    let sum = this.comments.reduce((sum, comment) => sum + comment.rating, 0)
+    this.product.rating = sum / this.comments.length;
   }
 }

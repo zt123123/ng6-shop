@@ -8,7 +8,7 @@
   <div>
     <p>{{comments.length}}个评论</p>
     <p>
-      <app-stars [rating]="product.rating"></app-stars>
+      <app-stars [rating]="product.rating|number:'1.0-2'"></app-stars>
     </p>
   </div>
 </div>
@@ -16,14 +16,17 @@
 
 <div class="well">
   <div>
+    <button class="btn btn-success" (click)="isCommentHidden=!isCommentHidden">发表评论</button>
+  </div>
+  <div [hidden]="isCommentHidden">
     <div>
       <app-stars [readonly]="false" [(rating)]="newRating"></app-stars>
     </div>
     <div>
-      <textarea [(ngModel)]="newComment"></textarea>
+      <textarea placeholder="请输入评论" class="form-control" [(ngModel)]="newComment"></textarea>
     </div>
     <div>
-      <button (click)="addComment()">添加评论</button>
+      <button class="btn btn-primary" (click)="addComment()">提交</button>
     </div>
   </div>
   <div class="row" *ngFor="let item of comments">

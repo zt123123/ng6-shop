@@ -1,11 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 
 @Component({
   selector: 'app-stars',
   templateUrl: './stars.component.html',
   styleUrls: ['./stars.component.css']
 })
-export class StarsComponent implements OnInit {
+export class StarsComponent implements OnInit, OnChanges {
   @Input()
   rating: number = 0
   @Input()
@@ -19,16 +19,18 @@ export class StarsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+  }
+
+  ngOnChanges() {
     this.stars = [];
     for (let index = 1; index <= 5; index++) {
       this.stars.push(index > this.rating);
     }
-    // this.stars = [false, false, true, true, true]
   }
+  
   clickStar(index: number) {
     if (!this.readonly) {
       this.rating = index + 1;
-      this.ngOnInit();
       this.ratingChange.emit(this.rating);
     }
   }
