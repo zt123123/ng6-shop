@@ -8,12 +8,15 @@ import { ProductService, Product, Comment } from '../share/product.service';
   styleUrls: ['./product-detail.component.css']
 })
 export class ProductDetailComponent implements OnInit {
-  private product: Product;
-  private comments: Comment[];
+  product: Product;
+  comments: Comment[];
+
+  newRating: number;
+  newComment: string;
 
   constructor(
-    private routeInfo: ActivatedRoute,
-    private productService: ProductService
+    public routeInfo: ActivatedRoute,
+    public productService: ProductService
   ) {
 
   }
@@ -22,5 +25,9 @@ export class ProductDetailComponent implements OnInit {
     let productId: number = this.routeInfo.snapshot.params['productId']
     this.product = this.productService.getProduct(productId)
     this.comments = this.productService.getCommentsForProductId(productId)
+  }
+  addComment() {
+    let comment = new Comment(0, this.product.id, new Date, "someone", this.newRating, this.newComment);
+    this.comments.unshift(comment);
   }
 }

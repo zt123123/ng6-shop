@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-stars',
@@ -7,9 +7,14 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class StarsComponent implements OnInit {
   @Input()
-  private rating: number = 0
+  rating: number = 0
+  @Input()
+  readonly: boolean = true;
 
-  private stars: boolean[];
+  @Output()
+  ratingChange: EventEmitter<number> = new EventEmitter();
+
+  stars: boolean[];
 
   constructor() { }
 
@@ -20,5 +25,11 @@ export class StarsComponent implements OnInit {
     }
     // this.stars = [false, false, true, true, true]
   }
-
+  clickStar(index: number) {
+    if (!this.readonly) {
+      this.rating = index + 1;
+      this.ngOnInit();
+      this.ratingChange.emit(this.rating);
+    }
+  }
 }

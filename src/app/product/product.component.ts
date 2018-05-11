@@ -10,9 +10,9 @@ import { Observable, Subscription } from 'rxjs';
 })
 export class ProductComponent implements OnInit {
 
-  private products: Product[];
-  private keyword: string;
-  private titleFilter: FormControl = new FormControl();
+  products: Product[];
+  keyword: string;
+  titleFilter: FormControl = new FormControl();
 
   constructor(private productService: ProductService) {
     this.titleFilter.valueChanges
