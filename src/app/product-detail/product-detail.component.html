@@ -1,14 +1,14 @@
 <div class="thumbnail">
   <img src="http://iph.href.lu/820x230" alt="" srcset="">
   <div>
-    <h4>{{product.price|currency:'￥'}}元</h4>
-    <h4>{{product.title}}</h4>
-    <p>{{product.desc}}</p>
+    <h4>{{product?.price|currency:'￥'}}元</h4>
+    <h4>{{product?.title}}</h4>
+    <p>{{product?.desc}}</p>
   </div>
   <div>
-    <p>{{comments.length}}个评论</p>
+    <p>{{comments?.length}}个评论</p>
     <p>
-      <app-stars [rating]="product.rating|number:'1.0-2'"></app-stars>
+      <app-stars [rating]="product?.rating|number:'1.0-2'"></app-stars>
     </p>
   </div>
 </div>

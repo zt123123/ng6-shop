@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService, Product } from '../share/product.service';
 import { FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-product',
@@ -10,26 +10,13 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit {
-  dataSource: Observable<any>
-  products: Array<any> = [];
-  keyword: string;
-  titleFilter: FormControl = new FormControl();
+  products: Observable<Product[]>;
 
-  constructor(private http: HttpClient, private productService: ProductService) {
-    this.titleFilter.valueChanges
-      .subscribe(val => this.keyword = val)
-
-    // this.dataSource = this.http.get("/products")
-    //   .map(res => res.json())
-    //   .subscribe(data => {
-    //     data ? this.products = data : null
-    //   })
-
+  constructor(private productService: ProductService) {
 
   }
 
   ngOnInit() {
     this.products = this.productService.getProducts()
   }
-
 }

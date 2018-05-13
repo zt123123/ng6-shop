@@ -1,11 +1,4 @@
-<div class="row">
-  <form action="" method="POST" role="form">
-    <div class="form-group">
-      <input type="text" class="form-control" id="" [formControl]="titleFilter" placeholder="Input field">
-    </div>
-  </form>
-</div>
-<div *ngFor="let item of products|search:'title':keyword" class="col-md-4 col-sm-4 col-lg-4">
+<div *ngFor="let item of products | async" class="col-md-4 col-sm-4 col-lg-4">
   <div class="thumbnail">
     <img src="http://iph.href.lu/320x150" alt="">
     <div class="caption">

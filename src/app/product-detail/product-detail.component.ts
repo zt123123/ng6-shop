@@ -23,8 +23,13 @@ export class ProductDetailComponent implements OnInit {
 
   ngOnInit() {
     let productId: number = this.routeInfo.snapshot.params['productId']
-    this.product = this.productService.getProduct(productId)
-    this.comments = this.productService.getCommentsForProductId(productId)
+    this.productService.getProduct(productId).subscribe(products => {
+      this.product = products
+    })
+
+    this.productService.getCommentsForProductId(productId).subscribe(comments => {
+      this.comments = comments
+    })
   }
   addComment() {
     let comment = new Comment(0, this.product.id, new Date, "someone", this.newRating, this.newComment);
