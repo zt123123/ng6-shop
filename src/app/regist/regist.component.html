@@ -1,0 +1,23 @@
+<form [formGroup]="formModel" (submit)="onSubmit()" role="form">
+  <div class="form-group">
+    <label for="username">用户名:</label>
+    <input type="text" formControlName="username" class="form-control" id="username" placeholder="请输入用户名">
+  </div>
+
+  <div class="form-group">
+    <label for="mobile">手机号:</label>
+    <input type="text" formControlName="mobile" class="form-control" id="mobile" placeholder="请输入手机号">
+  </div>
+
+  <div formGroupName="passwordsGroup">
+    <div class="form-group">
+      <label for="pwd">密码:</label>
+      <input formControlName="password" class="form-control" id="pwd" type="password" placeholder="请输入密码">
+    </div>
+    <div class="form-group">
+      <label for="pconfirm">确认密码:</label>
+      <input formControlName="pconfirm" class="form-control" id="pconfirm" type="password" placeholder="请重复密码">
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary">注册</button>
+</form>
