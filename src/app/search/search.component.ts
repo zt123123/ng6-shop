@@ -12,7 +12,7 @@ export class SearchComponent implements OnInit {
   categories: string[];
 
   formModel: FormGroup
-  constructor(productService: ProductService) {
+  constructor(private productService: ProductService) {
     this.categories = productService.getAllCategories()
   }
 
@@ -40,6 +40,7 @@ export class SearchComponent implements OnInit {
   onSearch() {
     if (this.formModel.valid) {
       console.log(this.formModel.value);
+      this.productService.searchEvent.emit(this.formModel.value)
     }
   }
 
