@@ -16,6 +16,8 @@ export class ProductService {
     return ["电子产品", "生活用品", "图书影音"]
   }
   getProducts(): Observable<Product[]> {
+    console.log("getProducts");
+    
     return this.http.get<Product[]>("http://localhost:8000/products")
   }
 
