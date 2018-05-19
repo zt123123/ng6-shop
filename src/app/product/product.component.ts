@@ -18,8 +18,6 @@ export class ProductComponent implements OnInit {
 
   ngOnInit() {
     this.products = this.productService.getProducts()
-    console.log(this.products);
-
     this.productService.searchEvent.subscribe(
       params => this.products = this.productService.search(params)
     )

@@ -1,7 +1,6 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { URLSearchParams } from 'url';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +15,6 @@ export class ProductService {
     return ["电子产品", "生活用品", "图书影音"]
   }
   getProducts(): Observable<Product[]> {
-    console.log("getProducts");
-    
     return this.http.get<Product[]>("http://localhost:8000/products")
   }
 
@@ -28,15 +25,19 @@ export class ProductService {
     return this.http.get<Comment[]>(`http://localhost:8000/comments/${id}`)
   }
 
-  search(params: ProductSearchParams): Observable<Product[]> {
-    return this.http.get<Product[]>(`http://localhost:8000/products?title=${params.title}&price=${params.price}&category=${params.category}`)
+  search(paramsObj: ProductSearchParams): Observable<Product[]> {
+    let params = new HttpParams()
+      .set("title", paramsObj.title)
+      .set("price", paramsObj.price)
+      .set("category", paramsObj.category)
+    return this.http.get<Product[]>("http://localhost:8000/products",{params})
   }
 }
 
 export class ProductSearchParams {
   constructor(
     public title: string,
-    public price: number,
+    public price: string,
     public category: string
   ) { }
 }

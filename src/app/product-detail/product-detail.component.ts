@@ -38,12 +38,15 @@ export class ProductDetailComponent implements OnInit {
     })
   }
   addComment() {
-    let comment = new Comment(0, this.product.id, new Date, "someone", this.newRating, this.newComment);
-    this.comments.unshift(comment);
-    this.newComment = "";
-    this.newRating = 5;
-    this.isCommentHidden = true;
-    this.calcAvgStar(comment);
+
+    if (this.newComment != "") {
+      let comment = new Comment(0, this.product.id, new Date, "someone", this.newRating, this.newComment);
+      this.comments.unshift(comment);
+      this.newComment = "";
+      this.newRating = 5;
+      this.isCommentHidden = true;
+      this.calcAvgStar(comment);
+    }
   }
 
   calcAvgStar(comment) {
