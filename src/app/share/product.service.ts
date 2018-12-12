@@ -1,6 +1,7 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +31,7 @@ export class ProductService {
       .set("title", paramsObj.title)
       .set("price", paramsObj.price)
       .set("category", paramsObj.category)
-    return this.http.get<Product[]>("http://localhost:8000/products",{params})
+    return this.http.get<Product[]>("http://localhost:8000/products", { params })
   }
 }
 
@@ -39,6 +40,13 @@ export class ProductSearchParams {
     public title: string,
     public price: string,
     public category: string
+  ) { }
+}
+
+export class Category {
+  constructor(
+    public id: number,
+    public name: string,
   ) { }
 }
 
