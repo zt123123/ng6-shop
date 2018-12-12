@@ -1,7 +1,6 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +11,8 @@ export class ProductService {
 
   constructor(private http: HttpClient) { }
 
-  getAllCategories(): string[] {
-    return ["电子产品", "生活用品", "图书影音"]
+  getAllCategories(): Observable<any[]> {
+    return this.http.get<string[]>("http://localhost:8000/categories")
   }
   getProducts(): Observable<Product[]> {
     return this.http.get<Product[]>("http://localhost:8000/products")
@@ -25,12 +24,33 @@ export class ProductService {
   getCommentsForProductId(id: number): Observable<Comment[]> {
     return this.http.get<Comment[]>(`http://localhost:8000/comments/${id}`)
   }
+  addCommentsForProductId(comment: any): Observable<any> {
+    return this.http.post(
+      "http://localhost:8000/comments/",
+      comment
+    )
+  }
+
+  page(page: string): Observable<Product[]> {
+    let params = new HttpParams({ fromObject: { _page: page, _limit: "10" } })
+
+    return this.http.get<Product[]>("http://localhost:8000/products", { params })
+  }
 
   search(paramsObj: ProductSearchParams): Observable<Product[]> {
-    let params = new HttpParams()
-      .set("title", paramsObj.title)
-      .set("price", paramsObj.price)
-      .set("category", paramsObj.category)
+    let object = {}
+    for (const item of Object.keys(paramsObj)) {
+      if (paramsObj[item]) {
+        object[item] = paramsObj[item];
+      }
+    }
+    if (object["category"] == -1) {
+      delete object["category"];
+    }
+
+    let params = new HttpParams({ fromObject: object })
+
+
     return this.http.get<Product[]>("http://localhost:8000/products", { params })
   }
 }

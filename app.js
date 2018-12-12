@@ -16,6 +16,16 @@ module.exports = () => {
         'category|1-6': 1
       }
     ],
+    'comments|10': [{
+      'id|+1': 1,
+      "productId|1-50": 1,
+      "data|1-5": [{
+        "user": Random.cname(),
+        'rating|1-5': 1,
+        "content": '@ctitle(100)',
+        "timestamp": Random.date(),
+      }]
+    }],
     'categories|3': [
       {
         "id|+1": 1,

@@ -33,14 +33,22 @@ export class ProductDetailComponent implements OnInit {
       this.currentBid = products.price
     })
 
-    this.productService.getCommentsForProductId(productId).subscribe(comments => {
-      this.comments = comments
-    })
+    this.productService.getCommentsForProductId(productId)
+      .subscribe(comments => {
+        this.comments = comments["data"];
+      })
   }
   addComment() {
 
     if (this.newComment != "") {
+
+
+
       let comment = new Comment(0, this.product.id, new Date, "someone", this.newRating, this.newComment);
+      this.productService.addCommentsForProductId(comment).subscribe(products => {
+        console.log(products);
+      })
+
       this.comments.unshift(comment);
       this.newComment = "";
       this.newRating = 5;

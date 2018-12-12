@@ -13,7 +13,9 @@ export class SearchComponent implements OnInit {
 
   formModel: FormGroup
   constructor(private productService: ProductService) {
-    this.categories = productService.getAllCategories()
+    productService.getAllCategories().subscribe(res=>{
+      this.categories =res.map(item=>item.name);
+    })
   }
 
   ngOnInit() {
@@ -39,7 +41,6 @@ export class SearchComponent implements OnInit {
 
   onSearch() {
     if (this.formModel.valid) {
-      console.log(this.formModel.value);
       this.productService.searchEvent.emit(this.formModel.value)
     }
   }
